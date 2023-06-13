@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_project_getx/screen/customtextfield.dart';
+import 'package:get/get.dart';
 
-import '../component/color.dart';
-import '../layout/defaultlayout.dart';
+import '../common/component/color.dart';
+import '../common/layout/defaultlayout.dart';
+import '../common/view/root_tab.dart';
 
 class LoginScreen extends StatelessWidget {
   String username = '';
@@ -54,7 +56,9 @@ class LoginScreen extends StatelessWidget {
                   height: 16.0,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(RootTab());
+                  },
                   child: const Text('로그인'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: PRIMARY_COLOR,
