@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import '../component/data.dart';
+
 class DataUtils {
   //token encode
   static String plainToBase64(String plain) {
@@ -8,5 +10,9 @@ class DataUtils {
     String encoded = stringToBase64.encode(plain);
 
     return encoded;
+  }
+
+  static String pathToUrl(String value) {
+    return 'http://$ip$value';
   }
 }

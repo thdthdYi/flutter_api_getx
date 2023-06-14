@@ -1,4 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_api_project_getx/common/view/root_tab.dart';
+import 'package:flutter_api_project_getx/controller/pagination_controller.dart';
+import 'package:flutter_api_project_getx/screen/login_screen.dart';
+import 'package:flutter_api_project_getx/screen/splash_screen.dart';
 
 import 'package:get/get.dart';
 
@@ -6,6 +10,8 @@ import '../common/component/data.dart';
 import '../model/login_response.dart';
 
 import '../common/utils/data_utils.dart';
+import '../restaurant/model/restaurant_model.dart';
+import '../restaurant/view/restaurant_screen.dart';
 
 class LoginController extends GetxController {
   static LoginController get to => Get.find<LoginController>();
@@ -14,10 +20,13 @@ class LoginController extends GetxController {
 
   final dio = Dio();
 
+  late String accessToken;
+  late String refreshToken;
+
   void onInit() async {
     super.onInit();
 
-    checkToken();
+    //await checkToken();
   }
 
 //로그인
@@ -31,15 +40,17 @@ class LoginController extends GetxController {
           'authorization': 'Basic $serialized',
         }));
 
+    if (resp.statusCode == 201) {
+      refreshToken = resp.data['refreshToken'];
+      await checkToken();
+    }
+
     return LoginResponse.fromJson(resp.data);
   }
 
   //앱을 처음 시작할 때 토큰이 존재하는지 확인 후 보내줄 스크린을 확인하는 과정 - splash screen
   Future<void> checkToken() async {
     String path = 'auth/token';
-
-    //Token 불러오기
-    final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
 
     try {
 // ignore: use_build_context_synchronously
@@ -48,14 +59,19 @@ class LoginController extends GetxController {
       //로그인 시 refresh token 발급 - refresh token을 이용해 만료된 access token 발급
       //access token을 이용해 api 정보 접근
       // ignore: unused_local_variable
-      final resp = await dio.post('http://$ip/$path',
+      final resp = await dio.post('http://$ip/auth/token',
           options: Options(headers: {'authorization': 'Bearer $refreshToken'}));
-      // ignore: use_build_context_synchronously
-      Get.to(());
+
+      if (resp.statusCode == 201) {
+        accessToken = resp.data['accessToken'];
+
+        await PaginationController.to.pagenateRestaurant();
+        Get.to(() => RootTab());
+      }
     } catch (e) {
       //에러시 로그인 화면으로 이동하여 다시 로그인함.
       // ignore: use_build_context_synchronously
-      Get.to(());
+      Get.to(() => (LoginScreen()));
     }
   }
 }

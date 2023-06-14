@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_api_project_getx/screen/login_screen.dart';
 import 'package:get/get.dart';
 
+import 'controller/login_controller.dart';
+import 'controller/pagination_controller.dart';
 import 'controller/root_tab_controller.dart';
 
 void main() {
   Get.put(BottomTabsController());
+  Get.put(LoginController());
+  Get.put(PaginationController());
 
   runApp(const MyApp());
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_project_getx/controller/login_controller.dart';
 import 'package:flutter_api_project_getx/screen/customtextfield.dart';
 import 'package:get/get.dart';
 
 import '../common/component/color.dart';
+import '../common/component/data.dart';
 import '../common/layout/defaultlayout.dart';
 import '../common/view/root_tab.dart';
 
@@ -56,8 +58,9 @@ class LoginScreen extends StatelessWidget {
                   height: 16.0,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    Get.to(RootTab());
+                  onPressed: () async {
+                    LoginController.to
+                        .login(username: username, password: password);
                   },
                   child: const Text('로그인'),
                   style: ElevatedButton.styleFrom(
