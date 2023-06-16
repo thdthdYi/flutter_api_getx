@@ -8,23 +8,37 @@ import 'package:flutter_api_project_getx/restaurant/model/restaurant_detail_mode
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 class RestaurantDetailScreen extends StatelessWidget {
+  final item;
+  //api 호출 데이터 받아오기
   const RestaurantDetailScreen({required this.item, Key? key})
       : super(key: key);
 
-  final item;
-
   @override
   Widget build(BuildContext context) {
+    //데이터 model로 mapping
     final model = RestaurantDetailModel.fromJson(item);
     return DefaultLayout(
         title: 'Restaurant',
         child: CustomScrollView(
           slivers: [
-            rederTop(model: model),
+            rederTop(model: model), //model data 넘겨받기
             renderLabel(),
-            renderProducts(),
+            renderProducts(products: model.products),
           ],
         ));
+  }
+
+//detail_Screen 상단 위젯
+  SliverToBoxAdapter rederTop({
+    required RestaurantDetailModel model,
+  }) {
+    return SliverToBoxAdapter(
+      child: RestaurantCard.fromModel(
+        //상속 구조 이용해서 detail과 not detail 구별
+        model: model,
+        isDetail: true,
+      ),
+    );
   }
 
   SliverPadding renderLabel() {
@@ -38,27 +52,25 @@ class RestaurantDetailScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding renderProducts() {
+//메뉴 위젯
+  SliverPadding renderProducts(
+      {required List<RestaurantProductModel> products}) {
     return SliverPadding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
-        sliver:
-            SliverList(delegate: SliverChildBuilderDelegate((context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Container(),
-          );
-        })));
-  }
-
-  SliverToBoxAdapter rederTop({
-    required RestaurantDetailModel model,
-  }) {
-    return SliverToBoxAdapter(
-      child: RestaurantCard.fromModel(
-        model: model,
-        isDetail: true,
-      ),
-    );
+        //products 리스트 길이만큼 List
+        sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            final model = products[index];
+            return Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: ProductCard.fromModel(
+                model: model,
+              ),
+            );
+          },
+          childCount: products.length,
+        )));
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_project_getx/restaurant/model/restaurant_detail_model.dart';
 
 import '../../common/component/color.dart';
 
@@ -21,6 +22,22 @@ class ProductCard extends StatelessWidget {
       this.onAdd,
       Key? key})
       : super(key: key);
+
+  factory ProductCard.fromModel({
+    required RestaurantProductModel model,
+  }) {
+    return ProductCard(
+        image: Image.network(
+          model.imgUrl,
+          width: 110,
+          height: 110,
+          fit: BoxFit.cover,
+        ),
+        name: model.name,
+        detail: model.detail,
+        price: model.price,
+        id: model.id);
+  }
 
   // Image.asset(
   // 'asset/img/food/ddeok_bok_gi.jpg',

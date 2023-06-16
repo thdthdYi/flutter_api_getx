@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../common/component/data.dart';
 import '../restaurant/model/restaurant_detail_model.dart';
 
+//restaurant_screen 호출
 class PaginationController extends GetxController {
   static PaginationController get to => Get.find<PaginationController>();
 
@@ -25,6 +26,7 @@ class PaginationController extends GetxController {
     respData = resp.data['data'];
   }
 
+//상세페이지 호출
   Future<void> pagenateRestaurantDetail(String id) async {
     final resp = await dio.get('http://$ip/restaurant/$id',
         options: Options(headers: {
@@ -32,10 +34,9 @@ class PaginationController extends GetxController {
         }));
 
     //API 호출 결과를 확인
-
-    print(resp.data);
-
+    //print(resp.data);
     respDetailData = resp.data;
+    //data받아 페이지 build , 데이터 넘겨줌
     Get.to(() => RestaurantDetailScreen(item: respDetailData));
   }
 }
