@@ -10,9 +10,9 @@ class RootTab extends GetView<BottomTabsController> {
   RootTab({Key? key}) : super(key: key);
 
   final List<Widget> tabPages = [
-    RestaurantScreen(),
-    RestaurantScreen(),
-    RestaurantScreen(),
+    const RestaurantScreen(),
+    const RestaurantScreen(),
+    const RestaurantScreen(),
   ];
 
   @override
@@ -41,7 +41,7 @@ class RootTab extends GetView<BottomTabsController> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
-            label: '홈',
+            label: '장바구니',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),

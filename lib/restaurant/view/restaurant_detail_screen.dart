@@ -15,15 +15,15 @@ class RestaurantDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //데이터 model로 mapping
-    final model = RestaurantDetailModel.fromJson(item);
+    // //데이터 model로 mapping
+    // final model = RestaurantDetailModel.fromJson(item);
     return DefaultLayout(
         title: 'Restaurant',
         child: CustomScrollView(
           slivers: [
-            rederTop(model: model), //model data 넘겨받기
+            rederTop(model: item), //model data 넘겨받기
             renderLabel(),
-            renderProducts(products: model.products),
+            renderProducts(products: item.products),
           ],
         ));
   }
