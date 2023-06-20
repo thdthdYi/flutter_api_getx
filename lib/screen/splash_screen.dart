@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_project_getx/controller/login_controller.dart';
 
 import '../common/component/color.dart';
 import '../common/layout/defaultlayout.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      LoginController.to.checkToken();
+    });
+    LoginController.to.checkToken();
     return DefaultLayout(
         backgroundColor: PRIMARY_COLOR,
         child: SizedBox(

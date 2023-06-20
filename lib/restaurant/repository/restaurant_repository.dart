@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' hide Headers;
+import 'package:flutter_api_project_getx/common/model/cursor_pagination_model.dart';
 import 'package:flutter_api_project_getx/controller/login_controller.dart';
 import 'package:flutter_api_project_getx/restaurant/model/restaurant_detail_model.dart';
 import 'package:flutter_api_project_getx/restaurant/model/restaurant_model.dart';
@@ -22,7 +23,7 @@ abstract class RestaurantRepository {
   @Headers({
     'accessToken': 'true',
   })
-  //Future<List<RestaurantModel>> paginate();
+  Future<CursorPagination<RestaurantModel>> paginate();
 
   @GET('/{id}')
   @Headers({

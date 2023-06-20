@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_api_project_getx/common/view/root_tab.dart';
 import 'package:flutter_api_project_getx/controller/pagination_controller.dart';
 import 'package:flutter_api_project_getx/screen/login_screen.dart';
@@ -23,11 +24,7 @@ class LoginController extends GetxController {
   late String accessToken;
   late String refreshToken;
 
-  void onInit() async {
-    super.onInit();
-
-    //await checkToken();
-  }
+  bool isLoggedInValue = false;
 
 //로그인
   Future<LoginResponse> login(
@@ -66,12 +63,32 @@ class LoginController extends GetxController {
         accessToken = resp.data['accessToken'];
 
         await PaginationController.to.pagenateRestaurant();
-        Get.to(() => RootTab());
+
+        isLoggedInValue = true;
       }
     } catch (e) {
       //에러시 로그인 화면으로 이동하여 다시 로그인함.
       // ignore: use_build_context_synchronously
-      Get.to(() => (LoginScreen()));
+      isLoggedInValue = false;
+
+      Get.toNamed("/login");
+    }
+  }
+}
+
+class Routes {
+  static const String login = '/login';
+  static const String home = '/';
+  static const String splash = '/splash';
+}
+
+class AuthGuard extends GetMiddleware {
+  @override
+  RouteSettings? redirect(String? route) {
+    if (LoginController.to.isLoggedInValue == false)
+      return const RouteSettings(name: Routes.login);
+    else {
+      return const RouteSettings(name: Routes.home);
     }
   }
 }
