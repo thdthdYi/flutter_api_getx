@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api_project_getx/controller/login_controller.dart';
-import 'package:flutter_api_project_getx/screen/customtextfield.dart';
+import 'package:flutter_api_project_getx/user/controller/login_controller.dart';
+import 'package:flutter_api_project_getx/user/screen/customtextfield.dart';
 import 'package:get/get.dart';
 
-import '../common/component/color.dart';
-import '../common/component/data.dart';
-import '../common/layout/defaultlayout.dart';
-import '../common/view/root_tab.dart';
+import '../../common/component/color.dart';
+import '../../common/component/data.dart';
+import '../../common/layout/defaultlayout.dart';
+import '../../common/view/root_tab.dart';
 
 class LoginScreen extends StatelessWidget {
   String username = '';

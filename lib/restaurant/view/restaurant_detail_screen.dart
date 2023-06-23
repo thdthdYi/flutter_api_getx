@@ -1,11 +1,19 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:badges/badges.dart';
+import 'package:flutter/material.dart' hide Badge;
+
 import 'package:flutter_api_project_getx/common/layout/defaultlayout.dart';
-import 'package:flutter_api_project_getx/controller/pagination_controller.dart';
+
 import 'package:flutter_api_project_getx/product/component/product_card.dart';
+import 'package:flutter_api_project_getx/product/model/product_model.dart';
 import 'package:flutter_api_project_getx/restaurant/component/restaurant_card.dart';
 import 'package:flutter_api_project_getx/restaurant/model/restaurant_detail_model.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter_api_project_getx/restaurant/controller/basket_controller.dart';
+import 'package:flutter_api_project_getx/user/controller/pagination_controller.dart';
+import 'package:get/get.dart';
+
+import '../../common/component/color.dart';
+import '../model/restaurant_model.dart';
+import 'basket_screen.dart';
 
 class RestaurantDetailScreen extends StatelessWidget {
   final item;
@@ -15,15 +23,48 @@ class RestaurantDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final basket = BasketController.to.inBasket.obs;
+    if (PaginationController.to.respDetailData == null) {
+      return const DefaultLayout(
+          child: Center(
+        child: CircularProgressIndicator(),
+      ));
+    }
     // //데이터 model로 mapping
     // final model = RestaurantDetailModel.fromJson(item);
     return DefaultLayout(
         title: 'Restaurant',
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: PRIMARY_COLOR,
+          child: Obx(
+            () => Badge(
+              showBadge: basket.value.isNotEmpty, //장바구니가 비어있을 때
+              badgeContent: Text(
+                //장바구니 안에 숫자
+                basket.value
+                    .fold<int>(
+                      0,
+                      (previous, next) => previous + next.count,
+                    )
+                    .toString(),
+                style: const TextStyle(
+                  color: PRIMARY_COLOR,
+                  fontSize: 10.0,
+                ),
+              ),
+              badgeColor: Colors.white,
+              child: const Icon(
+                Icons.shopping_basket_outlined,
+              ),
+            ),
+          ),
+        ),
         child: CustomScrollView(
           slivers: [
             rederTop(model: item), //model data 넘겨받기
             renderLabel(),
-            renderProducts(products: item.products),
+            renderProducts(products: item.products, restaurant: item),
           ],
         ));
   }
@@ -54,7 +95,8 @@ class RestaurantDetailScreen extends StatelessWidget {
 
 //메뉴 위젯
   SliverPadding renderProducts(
-      {required List<RestaurantProductModel> products}) {
+      {required RestaurantModel restaurant,
+      required List<RestaurantProductModel> products}) {
     return SliverPadding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         //products 리스트 길이만큼 List
@@ -62,10 +104,22 @@ class RestaurantDetailScreen extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
           (context, index) {
             final model = products[index];
-            return Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: ProductCard.fromModel(
-                model: model,
+            return InkWell(
+              onTap: () {
+                BasketController.to.addToBasket(
+                    product: ProductModel(
+                        id: model.id,
+                        name: model.name,
+                        detail: model.detail,
+                        imgUrl: model.imgUrl,
+                        price: model.price,
+                        restaurant: restaurant));
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: ProductCard.fromRestaurantProductModel(
+                  model: model,
+                ),
               ),
             );
           },

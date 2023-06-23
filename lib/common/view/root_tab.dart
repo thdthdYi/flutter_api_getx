@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_project_getx/restaurant/view/basket_screen.dart';
 import 'package:get/get.dart';
 
-import '../../controller/root_tab_controller.dart';
+import '../../user/controller/root_tab_controller.dart';
 import '../../restaurant/view/restaurant_screen.dart';
 import '../component/color.dart';
 import '../layout/defaultlayout.dart';
@@ -11,7 +12,7 @@ class RootTab extends GetView<BottomTabsController> {
 
   final List<Widget> tabPages = [
     const RestaurantScreen(),
-    const RestaurantScreen(),
+    const BasketScreen(),
     const RestaurantScreen(),
   ];
 
@@ -40,7 +41,7 @@ class RootTab extends GetView<BottomTabsController> {
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
+            icon: Icon(Icons.shopping_cart),
             label: '장바구니',
           ),
           BottomNavigationBarItem(

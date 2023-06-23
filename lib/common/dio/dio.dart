@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_api_project_getx/controller/login_controller.dart';
+
+import 'package:get_storage/get_storage.dart';
 
 import '../component/data.dart';
 
 class CustomInterceptor extends Interceptor {
+  final GetStorage storage;
+  CustomInterceptor({required this.storage});
 //1.requeset
 
+  @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     print('REQUEST : ${options.method} , ${options.uri} , ${options.headers}');
@@ -14,7 +18,7 @@ class CustomInterceptor extends Interceptor {
       //delete header
       options.headers.remove('acceessToken');
 
-      final token = LoginController.to.accessToken;
+      final token = await storage.read(ACCESS_TOKEN_KEY);
 
       //replace header
       options.headers.addAll({
@@ -26,7 +30,7 @@ class CustomInterceptor extends Interceptor {
       //delete header
       options.headers.remove('refreshToken');
 
-      final token = LoginController.to.refreshToken;
+      final token = await storage.read(REFRESH_TOKEN_KEY);
 
       //replace header
       options.headers.addAll({
@@ -50,7 +54,7 @@ class CustomInterceptor extends Interceptor {
   void onError(err, ErrorInterceptorHandler handler) async {
     print('[ERR] [${err.requestOptions.method}] ${err.requestOptions.uri}');
 
-    final refreshToken = LoginController.to.refreshToken;
+    final refreshToken = await storage.read(REFRESH_TOKEN_KEY);
 
     if (refreshToken == null) {
       return handler.reject(err);
@@ -77,6 +81,8 @@ class CustomInterceptor extends Interceptor {
         options.headers.addAll({
           'authorization': 'Bearer $accessToken',
         });
+
+        await storage.write(ACCESS_TOKEN_KEY, accessToken);
 
         //요청재전송
         final response = await dio.fetch(options);
