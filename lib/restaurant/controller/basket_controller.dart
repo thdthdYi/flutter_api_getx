@@ -53,4 +53,49 @@ class BasketController extends GetxController {
     }
     update();
   }
+
+  //장바구니에서 삭제 했을 때 로직
+
+  Future<void> removeFromBasket({
+    required ProductModel product,
+    // true면 count와 관계없이 아예 삭제한다.
+    bool isDelete = false,
+  }) async {
+    // 1) 장바구니에 상품이 존재할때
+    //    1) 상품의 카운트가 1보다 크면 -1한다.
+    //    2) 상품의 카운트가 1이면 삭제한다.
+    // 2) 상품이 존재하지 않을때
+    //    즉시 함수를 반환하고 아무것도 하지 않는다.
+
+    final exists =
+        inBasket.value.firstWhereOrNull((e) => e.product.id == product.id) !=
+            null;
+
+    if (!exists) {
+      return;
+    }
+
+//이미 존재하는 것을 확인했으므로 에러가 날 일이 없음.
+    final existingProduct =
+        inBasket.firstWhere((e) => e.product.id == product.id);
+
+    if (existingProduct.count == 1 || isDelete) {
+      inBasket.value = inBasket.value
+          .where(
+            (e) => e.product.id != product.id,
+          )
+          .toList();
+    } else {
+      inBasket.value = inBasket.value
+          .map(
+            (e) => e.product.id == product.id
+                ? e.copyWith(
+                    count: e.count - 1,
+                  )
+                : e,
+          )
+          .toList();
+    }
+    update();
+  }
 }

@@ -76,7 +76,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final basket = BasketController.to.inBasket;
+    final basket = BasketController.to.inBasket.value;
     return Column(
       children: [
         IntrinsicHeight(
@@ -147,6 +147,7 @@ class ProductCard extends StatelessWidget {
   }
 }
 
+//장바구니 화면
 class _Footer extends StatelessWidget {
   final String total;
   final int count;

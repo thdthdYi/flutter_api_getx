@@ -35,7 +35,9 @@ class RestaurantDetailScreen extends StatelessWidget {
     return DefaultLayout(
         title: 'Restaurant',
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed('/basket');
+          },
           backgroundColor: PRIMARY_COLOR,
           child: Obx(
             () => Badge(
