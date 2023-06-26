@@ -12,6 +12,7 @@ class BasketController extends GetxController {
 
   final dio = LoginController.to.dio;
   RxList<BasketItemModel> inBasket = RxList<BasketItemModel>();
+  final productsTotal = RxInt(0);
 
   Future<void> patchBasket() async {
     await UserRepository(dio, baseUrl: 'http://$ip/user/me').patchBasket(
@@ -51,7 +52,7 @@ class BasketController extends GetxController {
         BasketItemModel(product: product, count: 1)
       ];
     }
-    update();
+    updateProductsTotal();
   }
 
   //장바구니에서 삭제 했을 때 로직
@@ -68,6 +69,7 @@ class BasketController extends GetxController {
     //    즉시 함수를 반환하고 아무것도 하지 않는다.
 
     final exists =
+        // ignore: invalid_use_of_protected_member
         inBasket.value.firstWhereOrNull((e) => e.product.id == product.id) !=
             null;
 
@@ -80,12 +82,14 @@ class BasketController extends GetxController {
         inBasket.firstWhere((e) => e.product.id == product.id);
 
     if (existingProduct.count == 1 || isDelete) {
+      // ignore: invalid_use_of_protected_member
       inBasket.value = inBasket.value
           .where(
             (e) => e.product.id != product.id,
           )
           .toList();
     } else {
+      // ignore: invalid_use_of_protected_member
       inBasket.value = inBasket.value
           .map(
             (e) => e.product.id == product.id
@@ -96,6 +100,14 @@ class BasketController extends GetxController {
           )
           .toList();
     }
-    update();
+    updateProductsTotal();
+  }
+
+  // 반응형 변수 업데이트 함수
+  void updateProductsTotal() {
+    productsTotal.value = inBasket.value.fold<int>(
+      0,
+      (p, n) => p + (n.product.price * n.count),
+    );
   }
 }

@@ -13,9 +13,9 @@ import 'package:get/get.dart';
 
 import '../../common/component/color.dart';
 import '../model/restaurant_model.dart';
-import 'basket_screen.dart';
 
 class RestaurantDetailScreen extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final item;
   //api 호출 데이터 받아오기
   const RestaurantDetailScreen({required this.item, Key? key})
@@ -24,6 +24,7 @@ class RestaurantDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final basket = BasketController.to.inBasket.obs;
+    // ignore: unnecessary_null_comparison
     if (PaginationController.to.respDetailData == null) {
       return const DefaultLayout(
           child: Center(
@@ -100,7 +101,7 @@ class RestaurantDetailScreen extends StatelessWidget {
       {required RestaurantModel restaurant,
       required List<RestaurantProductModel> products}) {
     return SliverPadding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         //products 리스트 길이만큼 List
         sliver: SliverList(
             delegate: SliverChildBuilderDelegate(

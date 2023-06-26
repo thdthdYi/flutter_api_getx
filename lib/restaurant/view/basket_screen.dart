@@ -21,15 +21,15 @@ class BasketScreen extends StatelessWidget {
         ),
       ));
     }
-    final productsTotal = RxInt(0); // 반응형 변수로 변경
+    // final productsTotal = RxInt(0); // 반응형 변수로 변경
 
-    // 반응형 변수 업데이트 함수
-    void updateProductsTotal() {
-      productsTotal.value = basket.value.fold<int>(
-        0,
-        (p, n) => p + (n.product.price * n.count),
-      );
-    }
+    // // 반응형 변수 업데이트 함수
+    // void updateProductsTotal() {
+    //   productsTotal.value = basket.value.fold<int>(
+    //     0,
+    //     (p, n) => p + (n.product.price * n.count),
+    //   );
+    // }
 
     final deliveryFee = basket.value.first.product.restaurant.deliveryFee;
 
@@ -53,13 +53,13 @@ class BasketScreen extends StatelessWidget {
                         BasketController.to.addToBasket(
                           product: model.product,
                         );
-                        updateProductsTotal();
+                        //updateProductsTotal();
                       },
                       onSubtract: () {
                         BasketController.to.removeFromBasket(
                           product: model.product,
                         );
-                        updateProductsTotal();
+                        //updateProductsTotal();
                       },
                     );
                   },
@@ -77,7 +77,7 @@ class BasketScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '₩' + productsTotal.toString(),
+                          '₩${BasketController.to.productsTotal.value}',
                         ),
                       ],
                     ),
@@ -90,9 +90,9 @@ class BasketScreen extends StatelessWidget {
                             color: BODY_TEXT_COLOR,
                           ),
                         ),
-                        if (basket.value.length > 0)
+                        if (basket.value.isNotEmpty)
                           Text(
-                            '₩' + deliveryFee.toString(),
+                            '₩$deliveryFee',
                           ),
                       ],
                     ),
@@ -106,7 +106,7 @@ class BasketScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '₩' + (deliveryFee + productsTotal.value).toString(),
+                          '₩${deliveryFee + BasketController.to.productsTotal.value}',
                         ),
                       ],
                     ),

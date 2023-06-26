@@ -17,6 +17,7 @@ class DefaultLayout extends StatelessWidget {
     this.floatingActionButton,
   }) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor ?? Colors.white,
@@ -36,7 +37,7 @@ class DefaultLayout extends StatelessWidget {
         elevation: 0,
         title: Text(
           title!,
-          style: TextStyle(fontSize: 16.0),
+          style: const TextStyle(fontSize: 16.0),
         ),
         foregroundColor: Colors.black,
       );

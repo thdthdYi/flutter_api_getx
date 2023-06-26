@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api_project_getx/common/component/data.dart';
+
 import 'package:flutter_api_project_getx/common/view/root_tab.dart';
 import 'package:flutter_api_project_getx/restaurant/controller/basket_controller.dart';
 import 'package:flutter_api_project_getx/restaurant/view/basket_screen.dart';
@@ -23,25 +23,27 @@ void main() async {
 
   await LoginController.to.checkToken();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter login',
-      home: SplashScreen(),
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.splash,
       getPages: [
         GetPage(
             name: '/splash',
-            page: () => SplashScreen(),
+            page: () => const SplashScreen(),
             middlewares: [AuthGuard()]),
         GetPage(name: '/login', page: () => LoginScreen()),
         GetPage(name: '/', page: () => RootTab()),
-        GetPage(name: '/basket', page: () => BasketScreen()),
+        GetPage(name: '/basket', page: () => const BasketScreen()),
       ],
     );
   }

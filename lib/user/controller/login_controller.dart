@@ -2,16 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_api_project_getx/common/view/root_tab.dart';
 import 'package:flutter_api_project_getx/user/controller/pagination_controller.dart';
-import 'package:flutter_api_project_getx/user/screen/login_screen.dart';
-import 'package:flutter_api_project_getx/user/screen/splash_screen.dart';
 
 import 'package:get/get.dart';
 
 import '../../common/component/data.dart';
 
 import '../../common/utils/data_utils.dart';
-import '../../restaurant/model/restaurant_model.dart';
-import '../../restaurant/view/restaurant_screen.dart';
+
 import '../model/login_response.dart';
 
 class LoginController extends GetxController {
@@ -104,9 +101,9 @@ class Routes {
 class AuthGuard extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    if (LoginController.to.isLoggedInValue == false)
+    if (LoginController.to.isLoggedInValue == false) {
       return const RouteSettings(name: Routes.login);
-    else {
+    } else {
       return const RouteSettings(name: Routes.home);
     }
   }

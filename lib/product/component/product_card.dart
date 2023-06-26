@@ -76,6 +76,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: invalid_use_of_protected_member
     final basket = BasketController.to.inBasket.value;
     return Column(
       children: [

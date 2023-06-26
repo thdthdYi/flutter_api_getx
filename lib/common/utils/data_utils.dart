@@ -15,4 +15,8 @@ class DataUtils {
   static String pathToUrl(String value) {
     return 'http://$ip$value';
   }
+
+  static DateTime stringToDateTime(String value) {
+    return DateTime.parse(value);
+  }
 }

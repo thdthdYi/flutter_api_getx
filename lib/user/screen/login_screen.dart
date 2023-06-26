@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_project_getx/user/controller/login_controller.dart';
 import 'package:flutter_api_project_getx/user/screen/customtextfield.dart';
-import 'package:get/get.dart';
 
 import '../../common/component/color.dart';
-import '../../common/component/data.dart';
-import '../../common/layout/defaultlayout.dart';
-import '../../common/view/root_tab.dart';
 
+import '../../common/layout/defaultlayout.dart';
+
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   String username = '';
   String password = '';
+
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +63,10 @@ class LoginScreen extends StatelessWidget {
                     LoginController.to
                         .login(username: username, password: password);
                   },
-                  child: const Text('로그인'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: PRIMARY_COLOR,
                   ),
+                  child: const Text('로그인'),
                 ),
               ],
             ),

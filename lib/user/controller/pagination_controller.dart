@@ -16,6 +16,7 @@ class PaginationController extends GetxController {
 
   late RestaurantDetailModel respDetailData;
 
+  // ignore: prefer_typing_uninitialized_variables
   late final respData;
 
   Future<void> pagenateRestaurant() async {

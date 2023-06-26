@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_api_project_getx/restaurant/model/restaurant_model.dart';
 
 import '../../common/component/color.dart';
-import '../../common/component/data.dart';
 
 class RestaurantCard extends StatelessWidget {
   final Widget image;
@@ -133,7 +132,8 @@ class RestaurantCard extends StatelessWidget {
 class _IconText extends StatelessWidget {
   final IconData icon;
   final String label;
-  const _IconText({super.key, required this.icon, required this.label});
+  const _IconText({required this.icon, required this.label, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -147,10 +147,6 @@ class _IconText extends StatelessWidget {
         const SizedBox(
           width: 8.0,
         ),
-        Text(
-          label,
-          style: TextStyle(),
-        )
       ],
     );
   }

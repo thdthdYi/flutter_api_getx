@@ -10,7 +10,7 @@ const BODY_TEXT_COLOR = Color(0xFF898989);
 
 //텍스트필드 배경 색상
 // ignore: constant_identifier_names
-const INPUT_BG_COLOR = Color(0xFFBFBFB);
+const INPUT_BG_COLOR = Color(0x0ffbfbfb);
 
 //텍스트필드 테두리 색상
 // ignore: constant_identifier_names

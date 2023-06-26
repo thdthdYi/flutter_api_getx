@@ -1,6 +1,5 @@
 import 'package:flutter_api_project_getx/restaurant/model/restaurant_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 import '../../common/utils/data_utils.dart';
 
@@ -31,10 +30,12 @@ class RestaurantDetailModel extends RestaurantModel {
 
 @freezed
 class RestaurantProductModel with _$RestaurantProductModel {
+  // ignore: invalid_annotation_target
   @JsonSerializable(explicitToJson: true)
   factory RestaurantProductModel({
     required String id,
     required String name,
+    // ignore: invalid_annotation_target
     @JsonKey(
       fromJson: DataUtils.pathToUrl,
     )
