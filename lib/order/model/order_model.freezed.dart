@@ -22,7 +22,8 @@ OrderProductModel _$OrderProductModelFromJson(Map<String, dynamic> json) {
 mixin _$OrderProductModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get detail => throw _privateConstructorUsedError;
+  String get detail =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(fromJson: DataUtils.pathToUrl)
   String get imgUrl => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
@@ -168,6 +169,7 @@ class _$_OrderProductModel implements _OrderProductModel {
   final String name;
   @override
   final String detail;
+// ignore: invalid_annotation_target
   @override
   @JsonKey(fromJson: DataUtils.pathToUrl)
   final String imgUrl;
@@ -227,7 +229,7 @@ abstract class _OrderProductModel implements OrderProductModel {
   String get name;
   @override
   String get detail;
-  @override
+  @override // ignore: invalid_annotation_target
   @JsonKey(fromJson: DataUtils.pathToUrl)
   String get imgUrl;
   @override

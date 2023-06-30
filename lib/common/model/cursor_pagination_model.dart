@@ -2,6 +2,18 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'cursor_pagination_model.g.dart';
 
+abstract class CursorPaginationBase {}
+
+//error가 있을 때
+class CursorPaginationError extends CursorPaginationBase {
+  final String message;
+
+  CursorPaginationError({required this.message});
+}
+
+//loaing 상태
+class CursorPaginationLoading extends CursorPaginationBase {}
+
 @JsonSerializable(
   genericArgumentFactories: true, //generic을 고려한 code generation.
 )
@@ -13,6 +25,17 @@ class CursorPagination<T> {
     required this.meta,
     required this.data,
   });
+
+  CursorPagination copyWith({
+    CursorPaginationMeta? meta,
+    List<T>? data,
+  }) {
+    return CursorPagination<T>(
+      meta: meta ?? this.meta,
+      data: data ?? this.data,
+    );
+  }
+
 //T type이 json으로부터 어떻게 들어오는지 정의가 필요.
   factory CursorPagination.fromJson(
           Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>

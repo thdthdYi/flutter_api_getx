@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_project_getx/common/layout/defaultlayout.dart';
+import 'package:flutter_api_project_getx/order/view/order_done_screen.dart';
 import 'package:flutter_api_project_getx/restaurant/controller/basket_controller.dart';
 import 'package:get/get.dart';
 
 import '../../common/component/color.dart';
+import '../../order/controller/order_controller.dart';
+import '../../order/view/order_screen.dart';
 import '../../product/component/product_card.dart';
 
 class BasketScreen extends StatelessWidget {
@@ -113,7 +116,18 @@ class BasketScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () async {},
+                        onPressed: () async {
+                          final resp = await OrderController.to.postOrder();
+
+                          if (resp) {
+                            Get.to(const OrderDoneScreen());
+                          } else {
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('결제 실패!')),
+                            );
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: PRIMARY_COLOR,
                         ),

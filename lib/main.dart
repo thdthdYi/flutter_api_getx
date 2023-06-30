@@ -8,6 +8,7 @@ import 'package:flutter_api_project_getx/user/screen/splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'order/controller/order_controller.dart';
 import 'user/controller/login_controller.dart';
 import 'user/controller/pagination_controller.dart';
 import 'user/controller/root_tab_controller.dart';
@@ -20,6 +21,7 @@ void main() async {
   Get.put(BottomTabsController());
   Get.put(PaginationController());
   Get.put(BasketController());
+  Get.put(OrderController());
 
   await LoginController.to.checkToken();
 

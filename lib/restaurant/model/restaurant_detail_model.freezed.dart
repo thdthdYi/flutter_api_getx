@@ -22,7 +22,8 @@ RestaurantProductModel _$RestaurantProductModelFromJson(
 /// @nodoc
 mixin _$RestaurantProductModel {
   String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get name =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(fromJson: DataUtils.pathToUrl)
   String get imgUrl => throw _privateConstructorUsedError;
   String get detail => throw _privateConstructorUsedError;
@@ -170,6 +171,7 @@ class _$_RestaurantProductModel implements _RestaurantProductModel {
   final String id;
   @override
   final String name;
+// ignore: invalid_annotation_target
   @override
   @JsonKey(fromJson: DataUtils.pathToUrl)
   final String imgUrl;
@@ -229,7 +231,7 @@ abstract class _RestaurantProductModel implements RestaurantProductModel {
   String get id;
   @override
   String get name;
-  @override
+  @override // ignore: invalid_annotation_target
   @JsonKey(fromJson: DataUtils.pathToUrl)
   String get imgUrl;
   @override
