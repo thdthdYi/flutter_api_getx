@@ -7,6 +7,7 @@ class BottomTabsController extends GetxController {
   final RxInt selectedtabIndex = 0.obs;
 
   void changeIndex(int index) {
-    selectedIndex(index);
+    selectedIndex.value = index;
+    selectedtabIndex.value = selectedIndex.value;
   }
 }

@@ -19,36 +19,54 @@ class RootTab extends GetView<BottomTabsController> {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      title: 'Looking Restaurants',
+      // title: 'Looking Restaurants',
 
       // ignore: sort_child_properties_last
-      child: Obx(
-        () => SafeArea(
-            child: tabPages[BottomTabsController.to.selectedIndex.value]),
+      child: SafeArea(
+        child: tabPages[BottomTabsController.to.selectedIndex.value],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: PRIMARY_COLOR,
-        unselectedItemColor: BODY_TEXT_COLOR,
-        selectedFontSize: 10,
-        unselectedFontSize: 10,
-        type: BottomNavigationBarType.fixed,
-        onTap: controller.changeIndex,
-        //현재 인덱스 저장
-        currentIndex: controller.selectedIndex.value,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: '장바구니',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: '홈',
-          ),
-        ],
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          selectedItemColor: PRIMARY_COLOR,
+          unselectedItemColor: BODY_TEXT_COLOR,
+          selectedFontSize: 10,
+          unselectedFontSize: 10,
+          type: BottomNavigationBarType.fixed,
+          onTap: (index) {
+            BottomTabsController.to.changeIndex(index);
+          },
+          //현재 인덱스 저장
+          currentIndex: controller.selectedIndex.value,
+          items: [
+            BottomNavigationBarItem(
+              icon: controller.selectedIndex.value == 0
+                  ? const Icon(
+                      Icons.home_outlined,
+                      color: PRIMARY_COLOR,
+                    )
+                  : const Icon(Icons.home_outlined, color: BODY_TEXT_COLOR),
+              label: '홈',
+            ),
+            BottomNavigationBarItem(
+              icon: controller.selectedIndex.value == 1
+                  ? const Icon(
+                      Icons.shopping_cart,
+                      color: PRIMARY_COLOR,
+                    )
+                  : const Icon(Icons.shopping_cart, color: BODY_TEXT_COLOR),
+              label: '장바구니',
+            ),
+            BottomNavigationBarItem(
+              icon: controller.selectedIndex.value == 2
+                  ? const Icon(
+                      Icons.person,
+                      color: PRIMARY_COLOR,
+                    )
+                  : const Icon(Icons.person, color: BODY_TEXT_COLOR),
+              label: '프로필',
+            ),
+          ],
+        ),
       ),
     );
   }
