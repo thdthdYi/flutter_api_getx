@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_api_project_getx/common/view/root_tab.dart';
-import 'package:flutter_api_project_getx/user/controller/pagination_controller.dart';
+import 'package:flutter_api_project_getx/restaurant/controller/restaurant_controller.dart';
 
 import 'package:get/get.dart';
 
@@ -74,7 +74,7 @@ class LoginController extends GetxController {
         if (resp.statusCode == 201) {
           accessToken = storage.read(ACCESS_TOKEN_KEY)!;
 
-          await PaginationController.to.pagenateRestaurant();
+          await RestaurantController.to.pagenateRestaurant();
 
           isLoggedInValue = true;
           return;

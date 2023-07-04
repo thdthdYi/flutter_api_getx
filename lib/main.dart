@@ -10,7 +10,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'order/controller/order_controller.dart';
 import 'user/controller/login_controller.dart';
-import 'user/controller/pagination_controller.dart';
+import 'restaurant/controller/restaurant_controller.dart';
 import 'user/controller/root_tab_controller.dart';
 
 void main() async {
@@ -19,7 +19,7 @@ void main() async {
   Get.put(LoginController());
 
   Get.put(BottomTabsController());
-  Get.put(PaginationController());
+  Get.put(RestaurantController());
   Get.put(BasketController());
   Get.put(OrderController());
 

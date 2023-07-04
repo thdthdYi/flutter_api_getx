@@ -1,13 +1,11 @@
 import 'package:get/get.dart';
 
-import '../model/cursor_pagination_model.dart';
-
-class _CursorPaginationInfo {
+class _PaginationInfo {
   final int fetchCount;
   final bool fetchMore;
   final bool forceRefetch;
 
-  _CursorPaginationInfo({
+  _PaginationInfo({
     this.fetchCount = 20,
     this.fetchMore = false,
     this.forceRefetch = false,

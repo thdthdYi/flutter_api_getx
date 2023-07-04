@@ -67,7 +67,7 @@ class CustomInterceptor extends Interceptor {
     //refresh token 자체에 문제가 있음.
 
     //토큰 재발급 시도
-    if (isStatus401 && isPathRefresh) {
+    if (isStatus401 || isPathRefresh) {
       final dio = Dio();
       try {
         final resp = await dio.post('http://$ip/auth/token',

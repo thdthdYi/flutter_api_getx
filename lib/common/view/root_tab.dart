@@ -23,7 +23,7 @@ class RootTab extends GetView<BottomTabsController> {
 
       // ignore: sort_child_properties_last
       child: SafeArea(
-        child: tabPages[BottomTabsController.to.selectedIndex.value],
+        child: Obx(() => tabPages[BottomTabsController.to.selectedIndex.value]),
       ),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(

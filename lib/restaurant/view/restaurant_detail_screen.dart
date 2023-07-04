@@ -8,7 +8,7 @@ import 'package:flutter_api_project_getx/product/model/product_model.dart';
 import 'package:flutter_api_project_getx/restaurant/component/restaurant_card.dart';
 import 'package:flutter_api_project_getx/restaurant/model/restaurant_detail_model.dart';
 import 'package:flutter_api_project_getx/restaurant/controller/basket_controller.dart';
-import 'package:flutter_api_project_getx/user/controller/pagination_controller.dart';
+import 'package:flutter_api_project_getx/restaurant/controller/restaurant_controller.dart';
 import 'package:get/get.dart';
 
 import '../../common/component/color.dart';
@@ -25,7 +25,7 @@ class RestaurantDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final basket = BasketController.to.inBasket.obs;
     // ignore: unnecessary_null_comparison
-    if (PaginationController.to.respDetailData == null) {
+    if (RestaurantController.to.respDetailData == null) {
       return const DefaultLayout(
           child: Center(
         child: CircularProgressIndicator(),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../controller/Cursorpagination_controller.dart';
+import '../controller/cursor_pagination_controller.dart';
 
 class PaginationUtils {
   static void paginate({
