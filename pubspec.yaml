@@ -41,6 +41,7 @@ dependencies:
   retrofit :
   logger :
   get_storage: ^2.1.1
+  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,6 +50,7 @@ dependencies:
 
   badges: ^2.0.3
   uuid :
+  skeletons: ^0.0.3
 
 dev_dependencies:
   flutter_test:
